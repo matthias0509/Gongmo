@@ -27,6 +27,30 @@ public class RegisterActivity extends AppCompatActivity {
         passwordInput = findViewById(R.id.editTextPassword);
         registerButton = findViewById(R.id.buttonRegister);
 
+
+        // XML 요소와 연결
+        nameInput = findViewById(R.id.editTextName);
+        emailInput = findViewById(R.id.editTextEmail);
+        passwordInput = findViewById(R.id.editTextPassword);
+        registerButton = findViewById(R.id.buttonRegister);
+
+// ✅ 스페이스 제거용 TextWatcher 추가
+        nameInput.addTextChangedListener(new android.text.TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (s.toString().contains(" ")) {
+                    nameInput.setText(s.toString().replace(" ", ""));
+                    nameInput.setSelection(nameInput.length()); // 커서 맨 끝으로
+                }
+            }
+
+            @Override
+            public void afterTextChanged(android.text.Editable s) {}
+        });
+
         // 버튼 클릭 시 서버에 회원가입 요청 보내기
         registerButton.setOnClickListener(v -> {
             String name = nameInput.getText().toString();
